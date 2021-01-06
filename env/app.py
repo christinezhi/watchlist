@@ -1,12 +1,17 @@
-from flask import Flask  # 首先我们从 flask 包导入 Flask 类，通过实例化这个类，创建一个程序对象 app：
+from flask import Flask, render_template  # 首先我们从 flask 包导入 Flask 类，通过实例化这个类，创建一个程序对象 app：
 from flask import escape
 
 app = Flask(__name__)
 
-
-@app.route('/')  # app.route() 装饰器来为这个函数绑定对应的 URL
+'''@app.route('/')  # app.route() 装饰器来为这个函数绑定对应的 URL
 def hello():
     return '<h1>Hello, welcome to my watchlist! Pippi loves you!</h1><img src="http://helloflask.com/totoro.gif">'
+'''
+
+
+@app.route('/')
+def index():
+    return render_template('index.html', name=name, movies=movies)
 
 
 @app.route('/user/<name>')
@@ -25,3 +30,18 @@ def test_url_for():
     # 下面这个调用传入了多余的关键字参数，它们会被作为查询字符串附加到 URL 后面。
     print(url_for('test_url_for', num=2))  # 输出：/test?num=2
     return 'Test page'
+
+
+name = 'Pikapika'
+movies = [
+    {'title': 'My Neighbor Totoro', 'year': '1988'},
+    {'title': 'Dead Poets Society', 'year': '1989'},
+    {'title': 'A Perfect World', 'year': '1993'},
+    {'title': 'Leon', 'year': '1994'},
+    {'title': 'Mahjong', 'year': '1996'},
+    {'title': 'Swallowtail Butterfly', 'year': '1996'},
+    {'title': 'King of Comedy', 'year': '1999'},
+    {'title': 'Devils on the Doorstep', 'year': '1999'},
+    {'title': 'WALL-E', 'year': '2008'},
+    {'title': 'The Pork of Music', 'year': '2012'},
+]
